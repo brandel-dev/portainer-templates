@@ -1,0 +1,10 @@
+const names = `nginx httpd caddy traefik haproxy envoy apache rocket.chat mattermost discourse ghost wordpress drupal joomla mediawiki nextcloud owncloud seafile syncthing filebrowser minio s3cmd rclone jellyfin plex emby navidrome airsonic audiobookshelf kavita calibre-web freshrss miniflux wallabag wikijs bookstack outline dokuwiki etherpad hedgedoc drawio stirling-pdf paperless-ngx actualbudget firefly-iii maybe open-webui ollama librechat flowise langflow n8n windmill kestra metabase superset redash grafana prometheus loki jaeger zipkin uptime-kuma healthchecks smokeping netdata dozzle cadvisor node-exporter portainer portainer-agent adminer phpmyadmin pgadmin mongodb-express redisinsight mongo postgres mysql mariadb cockroachdb clickhouse influxdb questdb timescaledb cassandra neo4j arangodb couchdb couchbase memcached rabbitmq kafka zookeeper nats mosquitto emqx vernemq elasticsearch kibana logstash opensearch opensearch-dashboards meilisearch typesense solr chroma qdrant milvus weaviate keycloak authentik authelia dex openldap vaultwarden bitwarden passbolt gitea forgejo gitlab gitlab-runner woodpecker-ci drone jenkins teamcity sonarqube verdaccio registry distribution harbor kanboard taiga focalboard leantime plane vikunja radarr sonarr lidarr readarr prowlarr bazarr qbittorrent transmission deluge sabnzbd nzbget aria2 synapse element-server matrix-conduit matterbridge homeassistant homebridge esphome zwavejs2mqtt zigbee2mqtt frigate scrypted code-server theia guacamole rustdesk meshcentral`.split(/\s+/);
+const templates = names.map((name, i) => ({
+  type: 1,
+  title: name.replace(/(^|-)([a-z])/g, (_, a, b) => b.toUpperCase()),
+  description: `Aplicación Docker: ${name}`,
+  image: `${name}:latest`,
+  categories: i < 25 ? ['Web'] : i < 55 ? ['Productivity'] : i < 85 ? ['Database', 'Infrastructure'] : ['Self-hosted']
+}));
+require('fs').writeFileSync('portainer-templates.json', JSON.stringify({version: '2', templates}, null, 2) + '\\n');
+console.log(`Generated ${templates.length} templates`);
